@@ -1,3 +1,5 @@
-module main
+module github.com/hiroyuki-takayama-RAIX/WebApp
 
 go 1.20
+
+require golang.org/x/sync v0.3.0
