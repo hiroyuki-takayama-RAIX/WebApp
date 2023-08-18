@@ -6,6 +6,7 @@ services:
     build:
       args:
         - target=dev
+        - buildvcs=false
     volumes:
       - .:/app
     ports:
