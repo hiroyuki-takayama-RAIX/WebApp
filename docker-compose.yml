@@ -1,0 +1,12 @@
+version: "20.10.17"
+
+services:
+  app:
+    image: gotodo
+    build:
+      args:
+        - target=dev
+    volumes:
+      - .:/app
+    ports:
+      - "1234:80"
