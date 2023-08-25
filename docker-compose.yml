@@ -1,0 +1,16 @@
+version: "20.10.17"
+
+services:
+  app:
+    image: gotodo
+    build:
+      args:
+        - target=dev
+        - buildvcs=false
+    environment:
+      - TODO_ENV=dev
+      - PORT=8080
+    volumes:
+      - .:/app
+    ports:
+      - "18000:8080"
