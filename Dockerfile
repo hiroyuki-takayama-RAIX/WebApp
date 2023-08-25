@@ -3,26 +3,19 @@ FROM golang:1.20.4-alpine as deploy-builder
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
-RUN go mod download
+# COPY src/go.mod .
+# COPY src/go.sum .
+# RUN go mod download
+# why `go mod download` causes error in "docker compose build"…?
 
 COPY . .
-RUN go build -trimpath -ldflags "-w -s" -o app
+RUN go build ./src
 
 # デプロイ用のコンテナ
 FROM debian:bullseye-slim as deploy
 
 RUN apt-get update
 
-COPY --from=deploy-builder /app/app .
+COPY --from=deploy-builder /app .
 
-CMD ["./app"]
-
-# ローカル開発環境で利用するホットリロード環境
-FROM golang:1.20.4 as dev
-
-WORKDIR /app
-
-RUN go install github.com/cosmtrek/air@latest
-
-CMD ["air"]
+CMD ["./WebApp"]
